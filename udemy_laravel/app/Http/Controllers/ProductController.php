@@ -20,11 +20,12 @@ class ProductController extends Controller
     }
 
     public function create(){
-        return 'Este es el formulario para crear productos';
+        return view('products.create');
     }
 
     public function store(){
         //
+        dd('Estamos en store');
     }
 
     public function show($product){
