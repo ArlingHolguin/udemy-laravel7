@@ -44,14 +44,20 @@ class ProductController extends Controller
         //dd('Estamos en store');
         if(request()->status == 'available' && request()->stock == 0){
             // session()->put('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
-            session()->flash('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
-            return redirect()->back()->withInput(request()->all());
+            //session()->flash('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
+            return redirect()
+            ->back()
+            ->withInput(request()->all())
+            ->withErrors('No puede crear un stock de cero y poner el prodcuto disponible');
         }
        
         $product = Product::create(request()->all());
         //return redirect()->back();
         // return redirect()->action('MainController@index');
-        return redirect()->route('products.index');
+        //session()->flash('success', "El producto con id {$product->id} ha sido creado");
+        return redirect()
+        ->route('products.index')
+        ->withSuccess("El producto con id {$product->id} ha sido creado");
     }
 
 
@@ -94,7 +100,9 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($product);
         $product->update(request()->all());
-        return redirect()->route('products.index');
+        return redirect()
+        ->route('products.index')
+        ->withSuccess("El producto con id {$product->id} ha sido editado");
     }
 
 
@@ -104,7 +112,9 @@ class ProductController extends Controller
         //
         $product = Product::findOrFail($product);
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()
+        ->route('products.index')
+        ->withSuccess("El producto con id {$product->id} ha sido eliminado");
 
     }
 }
