@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
+{   public function __construct()
 {
+   $this->middleware('auth'); 
+}
     //con esta funcion  retorna la vista de todos los prodcutos 
     public function index(){
        //$products = DB::table('products')->get();       
