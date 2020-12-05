@@ -45,7 +45,7 @@ class ProductController extends Controller
         if(request()->status == 'available' && request()->stock == 0){
             // session()->put('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
             session()->flash('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
-            return redirect()->back();
+            return redirect()->back()->withInput(request()->all());
         }
        
         $product = Product::create(request()->all());
