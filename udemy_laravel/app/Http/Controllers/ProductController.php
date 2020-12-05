@@ -66,10 +66,10 @@ class ProductController extends Controller
 
 
     //recibe todos los prodcutos  del modelo Product y lo retorna en la vista Show
-    public function show($product){
+    public function show(Product $product){
         // $product = DB::table('products')->where('id', $product)->get();
         // $product = DB::table('products')->find($product);
-        $product = Product::findorFail($product);
+        // $product = Product::findorFail($product);
         // dd($product);
         //return $product;
         return view('products.show')->with([
@@ -81,15 +81,15 @@ class ProductController extends Controller
 
 
     //Esta funcion trae productos del modelo Product considerando su id 
-    public function edit($product){
+    public function edit(Product $product){
         return view('products.edit')->with([
-            'product' => Product::findOrFail($product),
+            'product' => $product,
         ]);
     }
 
 
     // Esta funcion recibe datos de la vista edit parara ser actualizados en la base de datos retornando a la vita principal  
-    public function update($product){
+    public function update(Product $product){
          //reglas de validacion
          $rules =[
             'title' => ['required', 'max:255'],
@@ -101,7 +101,7 @@ class ProductController extends Controller
         ];
         request()->validate($rules);
 
-        $product = Product::findOrFail($product);
+        //$product = Product::findOrFail($product);
         $product->update(request()->all());
         return redirect()
         ->route('products.index')
@@ -111,9 +111,9 @@ class ProductController extends Controller
 
 
     // Con esta funcion traemos el id de la tabla  Product y eliminamos  retornando a la vista principal 
-    public function destroy($product){
+    public function destroy(Product $product){
         //
-        $product = Product::findOrFail($product);
+        //$product = Product::findOrFail($product);
         $product->delete();
         return redirect()
         ->route('products.index')
