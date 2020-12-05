@@ -9,7 +9,8 @@
             <label for="title">Titulo</label>
             <input type="text" name="title" class="form-control" >
         </div>
-        <div class="form-row">            <label for="description">Descripción</label>
+        <div class="form-row">            
+            <label for="description">Descripción</label>
             <input type="text" name="description" class="form-control" >
         </div>
         <div class="form-row">

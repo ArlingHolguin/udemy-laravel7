@@ -8,23 +8,23 @@
         @method('PUT')
         <div class="form-row">
             <label for="title">Titulo</label>
-        <input type="text" name="title" class="form-control" value="{{ $product->title }}" required>
+        <input type="text" name="title" class="form-control" value="{{ $product->title }}" >
         </div>
         <div class="form-row">
             <label for="description">Descripción</label>
-            <input type="text" name="description" class="form-control" value="{{ $product->description }}" required>
+            <input type="text" name="description" class="form-control" value="{{ $product->description }}" >
         </div>
         <div class="form-row">
             <label for="price">Precio</label>
-            <input type="number" name="price" min="1.00" step="0.01" class="form-control" value="{{ $product->price }}" required>
+            <input type="number" name="price" min="1.00" step="0.01" class="form-control" value="{{ $product->price }}" >
         </div>
         <div class="form-row">
             <label for="stock">Stock</label>
-            <input type="number" name="stock" min="0" class="form-control" value="{{ $product->stock }}" required>
+            <input type="number" name="stock" min="0" class="form-control" value="{{ $product->stock }}" >
         </div>
         <div class="form-row">
             <label for="status">Estado</label>
-            <select name="status" id="status" class="custom-select" required>
+            <select name="status" id="status" class="custom-select" >
                 <option {{ $product->status == 'available' ? 'selected' : '' }} value="available">Available</option>
                 <option {{ $product->status == 'unavailable' ? 'selected' : '' }} value="unavailable">Unavailable</option>
             </select>

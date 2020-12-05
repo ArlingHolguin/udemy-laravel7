@@ -35,7 +35,7 @@ class ProductController extends Controller
             'description' => ['required', 'max:1000'],
             'price'=> ['required', 'min:1'],
             'stock'=> ['required', 'min:0'],
-            'status'=> ['required', 'in:available, unavailable'],
+            'status'=> ['required', 'in:available,unavailable'],
 
         ];
         request()->validate($rules);
@@ -87,10 +87,11 @@ class ProductController extends Controller
             'description' => ['required', 'max:1000'],
             'price'=> ['required', 'min:1'],
             'stock'=> ['required', 'min:0'],
-            'status'=> ['required', 'in:available, unavailable'],
+            'status'=> ['required', 'in:available,unavailable'],
 
         ];
         request()->validate($rules);
+
         $product = Product::findOrFail($product);
         $product->update(request()->all());
         return redirect()->route('products.index');
