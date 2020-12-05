@@ -29,7 +29,18 @@ class ProductController extends Controller
 
     //recibe a Create de la vista create
     public function store(){
-        //
+        //reglas de validacion
+        $rules =[
+            'title' => ['required', 'max:255'],
+            'description' => ['required', 'max:1000'],
+            'price'=> ['required', 'min:1'],
+            'stock'=> ['required', 'min:0'],
+            'status'=> ['required', 'in:available, unavailable'],
+
+        ];
+        request()->validate($rules);
+
+
         //dd('Estamos en store');
         if(request()->status == 'available' && request()->stock == 0){
             // session()->put('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
@@ -70,6 +81,16 @@ class ProductController extends Controller
 
     // Esta funcion recibe datos de la vista edit parara ser actualizados en la base de datos retornando a la vita principal  
     public function update($product){
+         //reglas de validacion
+         $rules =[
+            'title' => ['required', 'max:255'],
+            'description' => ['required', 'max:1000'],
+            'price'=> ['required', 'min:1'],
+            'stock'=> ['required', 'min:0'],
+            'status'=> ['required', 'in:available, unavailable'],
+
+        ];
+        request()->validate($rules);
         $product = Product::findOrFail($product);
         $product->update(request()->all());
         return redirect()->route('products.index');
