@@ -1,6 +1,6 @@
 @extends('layouts.app')
     @section('content')
-    <div class="container">
+    
         {{-- Comentario Blade--}}  
         <h1>Crear un producto</h1>     
     <form action="{{ route('products.store')}}" method="post">
@@ -33,11 +33,11 @@
 
             </select>
         </div>
-        <div class="form-row">
+        <div class="form-row mt-3">
             <button type="submit" class="btn btn-primary btn-lg">Crear Producto</button>
         </div>
     </form>   
                    
-    </div>
+   
     @endsection
 
