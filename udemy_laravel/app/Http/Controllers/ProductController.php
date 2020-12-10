@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\ProductRequest;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {   public function __construct()
@@ -27,37 +27,13 @@ class ProductController extends Controller
     // esta funcion returna a la vista create o sea formulario de crear producto 
     public function create(){
         return view('products.create');
+    
     }
 
 
     //recibe a Create de la vista create
-    public function store(){
-        //reglas de validacion
-        $rules =[
-            'title' => ['required', 'max:255'],
-            'description' => ['required', 'max:1000'],
-            'price'=> ['required', 'min:1'],
-            'stock'=> ['required', 'min:0'],
-            'status'=> ['required', 'in:available,unavailable'],
-
-        ];
-        request()->validate($rules);
-
-
-        //dd('Estamos en store');
-        if(request()->status == 'available' && request()->stock == 0){
-            // session()->put('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
-            //session()->flash('error', 'No puede crear un stock de cero y poner el prodcuto disponible');
-            return redirect()
-            ->back()
-            ->withInput(request()->all())
-            ->withErrors('No puede crear un stock de cero y poner el prodcuto disponible');
-        }
-       
-        $product = Product::create(request()->all());
-        //return redirect()->back();
-        // return redirect()->action('MainController@index');
-        //session()->flash('success', "El producto con id {$product->id} ha sido creado");
+    public function store(ProductRequest $request){        
+        $product = Product::create($request->validated());        
         return redirect()
         ->route('products.index')
         ->withSuccess("El producto con id {$product->id} ha sido creado");
@@ -89,20 +65,8 @@ class ProductController extends Controller
 
 
     // Esta funcion recibe datos de la vista edit parara ser actualizados en la base de datos retornando a la vita principal  
-    public function update(Product $product){
-         //reglas de validacion
-         $rules =[
-            'title' => ['required', 'max:255'],
-            'description' => ['required', 'max:1000'],
-            'price'=> ['required', 'min:1'],
-            'stock'=> ['required', 'min:0'],
-            'status'=> ['required', 'in:available,unavailable'],
-
-        ];
-        request()->validate($rules);
-
-        //$product = Product::findOrFail($product);
-        $product->update(request()->all());
+    public function update(ProductRequest $request, Product $product){         
+        $product->update($request->validated());//reglas de validacion
         return redirect()
         ->route('products.index')
         ->withSuccess("El producto con id {$product->id} ha sido editado");
